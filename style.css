@@ -405,7 +405,7 @@ html {
 }
 
 /* ========== МОБИЛЬНАЯ ВЕРСИЯ (≤376px) ========== */
-@media (max-width: 600px) {
+@media (max-width: 376px) {
     .hero {
         width: 100%;
         height: 700px;
