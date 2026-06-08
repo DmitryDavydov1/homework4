@@ -1,43 +1,60 @@
-function startMathGame() {
-  // 1. Генерируем случайные числа
-  const num1 = Math.floor(Math.random() * 10) + 1;
-  const num2 = Math.floor(Math.random() * 10) + 1;
+// ----- Игра «Переверни текст» -----
+function startReverseGame() {
+    let userText = prompt("Введите любой текст, и я переверну его:");
+    if (userText === null) {
+        alert("Вы отменили ввод.");
+        return;
+    }
+    userText = userText.trim();
+    if (userText === "") {
+        alert("Вы не ввели текст.");
+        return;
+    }
+    const reversedText = userText.split('').reverse().join('');
+    alert(`Исходный: "${userText}"\nПеревёрнутый: "${reversedText}"`);
+}
 
-  // 2. Случайная операция
-  const operations = ['+', '-', '*', '/'];
-  const randomIndex = Math.floor(Math.random() * operations.length);
-  const operation = operations[randomIndex];
 
-  let correctAnswer;
 
-  // 3. Считаем правильный ответ
-  if (operation === '+') {
-    correctAnswer = num1 + num2;
-  } else if (operation === '-') {
-    correctAnswer = num1 - num2;
-  } else if (operation === '*') {
-    correctAnswer = num1 * num2;
-  } else if (operation === '/') {
-    correctAnswer = +(num1 / num2).toFixed(2); // округление
-  }
 
-  // 4. Спрашиваем ответ у пользователя
-  const userAnswer = Number(
-    prompt(`Реши пример: ${num1} ${operation} ${num2}`)
-  );
+// ----- Игра «Викторина» -----
+function startQuiz() {
+    const quiz = [
+        {
+            question: "Какой цвет небо?",
+            options: ["1. Красный", "2. Синий", "3. Зеленый"],
+            correctAnswer: 2
+        },
+        {
+            question: "Сколько дней в неделе?",
+            options: ["1. Шесть", "2. Семь", "3. Восемь"],
+            correctAnswer: 2
+        },
+        {
+            question: "Сколько у человека пальцев на одной руке?",
+            options: ["1. Четыре", "2. Пять", "3. Шесть"],
+            correctAnswer: 2
+        }
+    ];
 
-  // 5. Проверка
-  if (isNaN(userAnswer)) {
-    alert('Это не число!');
-    return;
-  }
-
-  // 6. Результат
-  if (userAnswer === correctAnswer) {
-    alert('🎉 Правильно!');
-  } else {
-    alert(`❌ Неправильно! Правильный ответ: ${correctAnswer}`);
-  }
+    let correctCount = 0;
+    for (let i = 0; i < quiz.length; i++) {
+        const q = quiz[i];
+        const optionsText = q.options.join(", ");
+        const answerRaw = prompt(`Вопрос ${i+1} из ${quiz.length}:\n${q.question}\n\nВарианты:\n${optionsText}\n\nВведите номер (1, 2 или 3):`);
+        if (answerRaw === null) {
+            alert("Пропущен вопрос.");
+            continue;
+        }
+        const answer = parseInt(answerRaw.trim(), 10);
+        if (!isNaN(answer) && answer === q.correctAnswer) {
+            correctCount++;
+            alert("✅ Верно!");
+        } else {
+            alert(`❌ Неверно. Правильный ответ: ${q.correctAnswer} — ${q.options[q.correctAnswer - 1]}`);
+        }
+    }
+    alert(`Викторина окончена. Правильных ответов: ${correctCount} из ${quiz.length}`);
 }
 
 
@@ -45,180 +62,56 @@ function startMathGame() {
 
 
 
-// =========================
 // Задание 1
-// =========================
+'js'.toUpperCase();
 
-const arr1 = [1, 5, 4, 10, 0, 3];
-
-for (let i = 0; i < arr1.length; i++) {
-  console.log(arr1[i]);
-  if (arr1[i] === 10) break;
-}
-
-
-// =========================
 // Задание 2
-// =========================
+function filterByStart(arr, str) {
+    return arr.filter(item => item.toLowerCase().startsWith(str.toLowerCase()));
+}
 
-const arr2 = [1, 5, 4, 10, 0, 3];
-
-console.log(arr2.indexOf(4));
-
-
-// =========================
 // Задание 3
-// =========================
+Math.floor(32.58884);
+Math.ceil(32.58884);
+Math.round(32.58884);
 
-const arr3 = [1, 3, 5, 10, 20];
-
-console.log(arr3.join(' '));
-
-
-// =========================
 // Задание 4
-// =========================
+const nums = [52, 53, 49, 77, 21, 32];
+Math.min(...nums);
+Math.max(...nums);
 
-let arr4 = [];
-
-for (let i = 0; i < 3; i++) {
-  let inner = [];
-
-  for (let j = 0; j < 3; j++) {
-    inner.push(1);
-  }
-
-  arr4.push(inner);
-}
-
-console.log(arr4);
-
-
-// =========================
 // Задание 5
-// =========================
+function random1to10() {
+    console.log(Math.floor(Math.random() * 10) + 1);
+}
 
-let arr5 = [1, 1, 1];
-
-arr5.push(2, 2, 2);
-
-console.log(arr5);
-
-
-// =========================
 // Задание 6
-// =========================
+function randomArray(n) {
+    const length = Math.floor(n / 2);
+    const result = [];
+    for (let i = 0; i < length; i++) {
+        result.push(Math.floor(Math.random() * (n + 1)));
+    }
+    return result;
+}
 
-let arr6 = [9, 8, 7, 'a', 6, 5];
-
-arr6 = arr6.filter(item => item !== 'a');
-arr6.sort((a, b) => a - b);
-
-console.log(arr6);
-
-
-// =========================
 // Задание 7
-// =========================
-
-const arr7 = [9, 8, 7, 6, 5];
-
-let userGuess = Number(prompt('Угадай число из массива'));
-
-if (arr7.includes(userGuess)) {
-  alert('Угадал');
-} else {
-  alert('Не угадал');
+function randomInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-// =========================
 // Задание 8
-// =========================
+console.log(new Date());
 
-let str = 'abcdef';
-
-console.log(str.split('').reverse().join(''));
-
-
-// =========================
 // Задание 9
-// =========================
+const currentDate = new Date();
+const futureDate = new Date(currentDate);
+futureDate.setDate(currentDate.getDate() + 73);
+console.log(futureDate);
 
-let arr9 = [[1, 2, 3], [4, 5, 6]];
-
-console.log(arr9.flat());
-
-
-// =========================
 // Задание 10
-// =========================
-
-let arr10 = [];
-
-for (let i = 0; i < 10; i++) {
-  arr10.push(Math.floor(Math.random() * 10) + 1);
+function formatDate(date) {
+    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    const weekdays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+    return `Дата: ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} — это ${weekdays[date.getDay()]}.\nВремя: ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
 }
-
-for (let i = 0; i < arr10.length - 1; i++) {
-  console.log(arr10[i] + arr10[i + 1]);
-}
-
-
-// =========================
-// Задание 11
-// =========================
-
-function squareArray(arr) {
-  return arr.map(num => num ** 2);
-}
-
-
-// =========================
-// Задание 12
-// =========================
-
-function getLengths(arr) {
-  return arr.map(str => str.length);
-}
-
-
-// =========================
-// Задание 13
-// =========================
-
-function getNegativeNumbers(arr) {
-  return arr.filter(num => num < 0);
-}
-
-
-// =========================
-// Задание 14
-// =========================
-
-let arr14 = [];
-
-for (let i = 0; i < 10; i++) {
-  arr14.push(Math.floor(Math.random() * 11));
-}
-
-let evens = arr14.filter(num => num % 2 === 0);
-
-console.log('Исходный массив:', arr14);
-console.log('Четные:', evens);
-
-
-// =========================
-// Задание 15
-// =========================
-
-let arr15 = [];
-
-for (let i = 0; i < 6; i++) {
-  arr15.push(Math.floor(Math.random() * 10) + 1);
-}
-
-let sum = arr15.reduce((acc, num) => acc + num, 0);
-
-console.log('Массив:', arr15);
-console.log('Среднее:', sum / arr15.length);
