@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM-задания – исправленные и простые</title>
+    <style>
+        body {
+            font-family: system-ui, 'Segoe UI', sans-serif;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f1f5f9;
+        }
+        .task {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .task h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: #0f172a;
+            border-left: 5px solid #3b82f6;
+            padding-left: 15px;
+        }
+        button {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 8px 8px 8px 0;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .demo-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+        .description {
+            background: #e0f2fe;
+            padding: 6px 12px;
+            border-radius: 14px;
+            margin: 8px 0;
+        }
+        hr {
+            margin: 12px 0;
+            border-color: #cbd5e1;
+        }
+        .task7-items p.description {
+            background: #fef9c3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== ЗАДАНИЕ 1 ========== -->
+    <div class="task">
+        <h2>1. Скрыть / показать заголовок</h2>
+        <div class="demo-box">
+            <h1 id="header1">🍕 Заголовок, который прячется</h1>
+            <button id="btnToggle">Скрыть</button>
+        </div>
+    </div>
+
+    <!-- ========== ЗАДАНИЕ 2 ========== -->
+    <div class="task">
+        <h2>2. Изменить цвет абзаца на синий</h2>
+        <div class="demo-box">
+            <p id="coloredText">Этот текст станет синим по кнопке</p>
+            <button id="btnColor">Изменить цвет</button>
+        </div>
+    </div>
+
+    <!-- ========== ЗАДАНИЕ 3 ========== -->
+    <div class="task">
+        <h2>3. Изменить текст заголовка на "Привет, мир!"</h2>
+        <div class="demo-box">
+            <h1 id="header3">Старый заголовок</h1>
+            <button id="btnChangeText">Изменить текст</button>
+        </div>
+    </div>
+
+    <!-- ========== ЗАДАНИЕ 4 (теперь с кнопкой) ========== -->
+    <div class="task">
+        <h2>4. Найти ВСЕ .description → изменить на "Измененный текст"</h2>
+        <div class="demo-box">
+            <p class="description">Я description №1</p>
+            <p class="description">Я description №2</p>
+            <p>Обычный абзац (не изменится)</p>
+            <p class="description">Я description №3</p>
+            <button id="btnChangeAllToModified">Изменить все .description на "Измененный текст"</button>
+            <p><small>🔁 Кнопка найдёт все элементы с классом description на ВСЕЙ странице (включая другие задания) и поменяет их текст.</small></p>
+        </div>
+    </div>
+
+    <!-- ========== ЗАДАНИЕ 5 (тоже с кнопкой) ========== -->
+    <div class="task">
+        <h2>5. Найти ВСЕ .description → изменить на "Новый текст"</h2>
+        <div class="demo-box">
+            <p class="description">description A</p>
+            <p>Обычный абзац</p>
+            <p class="description">description B</p>
+            <button id="btnChangeAllToNew">Изменить все .description на "Новый текст"</button>
+            <p><small>🔁 Работает на все .description на странице (задание 4, задание 5, задание 7 — все изменятся).</small></p>
+        </div>
+    </div>
+
+    <!-- ========== ЗАДАНИЕ 6 ========== -->
+    <div class="task">
+        <h2>6. Добавить новый абзац в конец</h2>
+        <div class="demo-box">
+            <button id="btnAddParagraph">Добавить элемент</button>
+            <div id="containerForNew" style="margin-top: 15px; border-top: 1px dashed #94a3b8; padding-top: 10px;">
+                <i>Новые абзацы будут здесь ↓</i>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ЗАДАНИЕ 7 ========== -->
+    <div class="task">
+        <h2>7. Удалить первый &lt;p&gt; с классом description</h2>
+        <div class="demo-box task7-items">
+            <p class="description">🔹 Первый description (будет удалён)</p>
+            <p class="description">🔹 Второй description (останется)</p>
+            <p>Обычный абзац</p>
+            <p class="description">🔹 Третий description (останется)</p>
+            <button id="btnRemoveFirst">Удалить элемент</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== 1. Скрыть / показать ==========
+        const header1 = document.getElementById('header1');
+        const toggleBtn = document.getElementById('btnToggle');
+        toggleBtn.addEventListener('click', function() {
+            if (header1.style.display === 'none') {
+                header1.style.display = '';
+                toggleBtn.textContent = 'Скрыть';
+            } else {
+                header1.style.display = 'none';
+                toggleBtn.textContent = 'Показать';
+            }
+        });
+
+        // ========== 2. Изменить цвет на синий ==========
+        const coloredP = document.getElementById('coloredText');
+        const colorBtn = document.getElementById('btnColor');
+        colorBtn.addEventListener('click', function() {
+            coloredP.style.color = 'blue';
+        });
+
+        // ========== 3. Изменить текст заголовка ==========
+        const header3 = document.getElementById('header3');
+        const changeTextBtn = document.getElementById('btnChangeText');
+        changeTextBtn.addEventListener('click', function() {
+            header3.textContent = 'Привет, мир!';
+        });
+
+        // ========== 4. Найти ВСЕ .description и заменить на "Измененный текст" ==========
+        const changeAllModifiedBtn = document.getElementById('btnChangeAllToModified');
+        changeAllModifiedBtn.addEventListener('click', function() {
+            const allDescriptions = document.querySelectorAll('.description');
+            allDescriptions.forEach(el => {
+                el.textContent = 'Измененный текст';
+            });
+        });
+
+        // ========== 5. Найти ВСЕ .description и заменить на "Новый текст" ==========
+        const changeAllNewBtn = document.getElementById('btnChangeAllToNew');
+        changeAllNewBtn.addEventListener('click', function() {
+            const allDescriptions = document.querySelectorAll('.description');
+            allDescriptions.forEach(el => {
+                el.textContent = 'Новый текст';
+            });
+        });
+
+        // ========== 6. Добавить новый абзац ==========
+        const addBtn = document.getElementById('btnAddParagraph');
+        const container = document.getElementById('containerForNew');
+        addBtn.addEventListener('click', function() {
+            const newP = document.createElement('p');
+            newP.textContent = 'Новый абзац';
+            newP.style.background = '#d9f99d';
+            newP.style.padding = '8px';
+            newP.style.borderRadius = '12px';
+            newP.style.margin = '5px 0';
+            container.appendChild(newP);
+        });
+
+        // ========== 7. Удалить первый p.description ==========
+        const removeBtn = document.getElementById('btnRemoveFirst');
+        removeBtn.addEventListener('click', function() {
+            const firstDesc = document.querySelector('.task7-items p.description');
+            if (firstDesc) {
+                firstDesc.remove();
+            } else {
+                alert('В этом блоке больше нет абзацев с классом description');
+            }
+        });
+    </script>
+</body>
+</html>
